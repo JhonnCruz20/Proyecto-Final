@@ -1,2 +1,55 @@
-# Proyecto-Final
-Diseño e Implementacion de una Infraestructura de TI tolerante a fallos
+🖥️ Presentación del Proyecto: Infraestructura Tolerante a Fallos
+🎯 Objetivo General
+Diseñar y desplegar una infraestructura que garantice alta disponibilidad y tolerancia a fallos, asegurando que los servicios permanezcan activos incluso si uno o varios componentes del sistema fallan.
+
+🧱 Componentes de la Infraestructura
+Servidor Balanceador de Carga (Load Balancer)
+
+Encargado de distribuir equitativamente las peticiones entre los servidores APP.
+
+Mejora el rendimiento y evita sobrecargas.
+
+Herramientas utilizadas: Nginx o HAProxy.
+
+Servidores de Aplicaciones (APPserver1 y APPserver2)
+
+Contienen la lógica de negocio o el sistema web.
+
+Funcionan en paralelo para garantizar redundancia.
+
+Si uno falla, el balanceador redirige el tráfico al otro automáticamente.
+
+Servidor de Base de Datos Maestro (DBmaestro)
+
+Acepta todas las operaciones de escritura.
+
+Replica automáticamente los datos al servidor esclavo.
+
+Servidor de Base de Datos Esclavo (DBesclavo)
+
+Recibe actualizaciones del maestro.
+
+Funciona como respaldo y puede ser promovido a maestro en caso de fallo.
+
+Lecturas pueden distribuirse para alivianar la carga del maestro.
+
+🔄 Flujo General del Sistema
+El usuario accede al sistema a través del balanceador de carga.
+
+El balanceador redirige la petición a APP1 o APP2, según disponibilidad y carga.
+
+La aplicación consulta o actualiza los datos usando la base de datos maestro.
+
+Los datos se replican automáticamente al servidor esclavo.
+
+Si alguno de los servidores falla, los demás siguen operando sin interrupciones visibles.
+
+✅ Beneficios
+Alta disponibilidad y continuidad del servicio.
+
+Reducción de puntos únicos de falla.
+
+Mejor rendimiento y escalabilidad horizontal.
+
+Seguridad y respaldo de datos mediante replicación.
+
