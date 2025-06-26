@@ -1,0 +1,210 @@
+CONFIGURACION DE LOS SERVIDORES
+Actualizaremos los paquetes del sistema 
+                                 $ sudo apt update && sudo apt upgrade -y
+Apt  Gestor de paquetes en Ubuntu, se usa para instalar, actualizar o eliminar programas.
+Update  Actualiza la lista de paquetes disponibles desde los repositorios
+&&  “Y luego”, ejecuta el comando solo si el primero se ejecutó correctamente
+Upgrade  Instala las actualizaciones disponibles para los paquetes ya instalados en el sistema
+-y  “sí a todo”, Acepta automáticamente todas las preguntas
+El comando hace que el sistema se actualice con las últimas versiones de los programas instalados.
+ 
+Instalamos el servidor SSH
+                                        $ sudo apt install openssh-server -y
+Install  Herramienta para instalar un paquete.
+Openssh-server  Servidor SSH, permite que otros equipos se conecten de forma remota y segura a tu máquina usando protocolo SSH.
+ 
+
+Activamos el servidor SSH
+                 $ sudo systemctl start ssh
+Systemctl  Herramienta para administrar servicios del sistema.
+Start  Indica que quieres iniciar un servicio.
+Ssh  Nombre del servicio SSH (servidor que permite conexiones remotas seguras)
+
+Habilitamos el servidor para que arranque al iniciar el sistema
+                 $ sudo systemctl enable ssh
+Enable  Hace que el servicio se inicie automáticamente al arrancar el sistema.
+ 
+Verificamos que el servidor SSH esté activo
+                 $ sudo systemctl status ssh
+Status  Muestra el estado actual del servicio (si está activo, inactivo, fallando, etc.)
+ 
+Verificamos que este escuchando en el puerto 22 (default de ssh)
+                    $ sudo ss -tlnp | grep ssh
+Ss  Herramienta para ver conexiones de red activas y puertos abiertos.
+-tlnp  -t: Muestra solo conexiones TCP
+         -l: Muestra puertos en escucha (listening)
+         -n: Muestra IPs y puertos en formato numérico.
+         -p: Muestra los procesos que estén usando esos puertos
+|  “tuberia”, toma la salida del comando anterior (ss -tlnp) y la pasa como entrada al siguiente (grep ssh)
+Grep SSH  Filtra y muestra solo las líneas que contienen la palabra ssh (muestra si SSH está escuchando y en qué puerto)
+El comando muestra si el servidor SSH está corriendo, en que IP/puerto y que proceso lo maneja.
+ 
+Configuramos el Firewall (ufw – Uncomplicated Firewall)
+ Activamos ufw
+              $ sudo ufw enable
+ 
+ Configurar conexiones entrantes al puerto ssh
+             $ sudo ufw allow 2222/tcp
+ 
+ Verificamos el estado del firewall y asegúrate que el puerto designado este activo
+                $ sudo ufw status
+ 
+
+Instalación y configuración de Nginx con PHP-FPM en Ubuntu Server 24.04 LTS
+Instalación de Ngnix
+                      $ sudo apt install nginx -y
+ 
+Activamos Nginx
+$ sudo systemctl start nginx
+Habilitamos el servicio para que inicie desde el arranque
+              $ sudo systemctl enable nginx
+Verificamos que el servicio esté activo
+              $ sudo systemctl status nginx   
+             
+Procedemos a habilitar el tráfico HTTP
+             $ sudo ufw allow ‘Nginx HTTP’
+ 
+Procedemos a habilitar el tráfico HTTPS  
+             $ sudo ufw allow ‘Nginx HTTPS’
+ 	
+Verificamos que este activo
+            $ sudo ufw status
+ 	
+Verificamos la IP del servidor
+                               $ ip a
+ 
+inet: 192.168.26.15
+Ingresamos desde el navegador insertando la ip del servidor
+ 
+Eliminación de la página por defecto Nginx
+Ingresamos a la carpeta /var/www/html/ donde se encuentra almacenado las páginas webs
+                  $ cd /var/www/html/
+Una vez ingresado con ls verificamos las páginas
+                  $ ls
+ 
+Observamos que tenemos la página web por defecto.
+Eliminamos la página por defecto
+             sudo rm index.nginx-debian.html
+ 
+Creamos un nuevo archivo index.html donde montaremos una página prueba
+               $ sudo nano index.html
+ 
+Escribimos un comentario por defecto
+ 
+Guardamos y reiniciamos Nginx
+                 $sudo systemctl restart nginx
+ 
+Como estamos sigue dentro de la carpeta html procedemos a verificar la creación de la página de prueba
+ 
+Observamos que correctamente se cargó index.html
+Ingresamos nuevamente al navegador local y verificamos index.html
+  
+Creamos un nuevo servidor para el balanceador de carga para las páginas web
+Actualizamos los paquetes
+               $ sudo apt update
+ 
+Instalamos SSH
+            $ sudo apt install openssh-server -y
+ 
+Activamos el servicio SSH
+               $ sudo systemctl start ssh
+ 
+Habilitamos para que arranque automáticamente al iniciar
+              $ sudo systemctl enable ssh
+ 
+Verificamos que el servicio este activo y corriendo
+               $sudo systemctl status ssh
+ 
+Verificamos que este escuchando en el puerto default
+              $ sudo ss -tlnp | grep ssh
+ 
+Habilitamos el Firewall UFW
+               $ sudo ufw enable
+ 
+Configurar la conexión del SSH
+            $ sudo ufw allow ssh
+ 
+Verificamos los puertos y el estado del UFW
+         $ sudo ufw status
+ 
+Instalamos Nginx
+               $ sudo apt install nginx -y
+ 
+Activamos el servicio y configuramos para el arranque
+               $ sudo systemctl start nginx
+               $ sudo systemctl enable nginx
+ 
+Verificamos que el servicio esté activo
+               $ sudo systemctl status nginx
+ 
+Habilitamos el tráfico HTTP
+              $ sudo ufw allow ‘Nginx HTTP’
+ 
+Habilitamos el tráfico HTTPS
+             $ sudo ufw allow ‘Nginx HTTPS’
+ 
+Verificamos el tráfico
+             $ sudo ufw status
+ 
+Verificamos que IP tiene 
+                         $ ip a
+ 
+ip  192.168.26.16
+Ingresamos al navegador para verificar que todo este correcto
+ 
+Eliminamos el archivo por defecto
+ 
+Creamos un nuevo archivo de ejemplo
+ 
+Escribimos un texto de ejemplo
+ 
+Reiniciamos Nginx para ejecutar los cambios
+ 
+Verificamos el archivo creado en el navegador
+ 
+Eliminamos el archivo de prueba index.html y verificamos
+ 
+ 
+Creamos un nuevo archivo para configurar el Balanceador
+        $ sudo nano /etc/nginx/sites-available/app_balancer
+ Configuramos el archivo
+ 
+Reiniciamos Nginx
+ 
+Procedemos a activar la configuración realizada 
+ 
+Removemos la configuración por defecto
+ 
+Verificamos que no haya errores
+ 
+Reiniciamos nginx
+ 
+Ahora entraremos a nuestro navegador local y debemos verificar que al actualizar la página en cada carga muestre la app de cada servidor
+ 
+Si actualizamos la página
+ 
+Verificamos que la configuración del Balanceador funciona correctamente
+
+Si apagamos un servidor (ejm. AppServer1), entonces solo nos mostrará la página de la AppServer2
+Si apagamos ambos servidores no podremos encontrar las páginas
+1.	Actualize el Sistema 
+ 
+Primero actualizo todos los paquetes instalados en el sistema (apt upgrade). Esto asegura que tengo las últimas versiones y evita conflictos al instalar nuevas herramientas.
+
+2.	Instalo curl, una herramienta esencial	
+ 
+3.	Descargo y ejecuto el script del repositorio oficial de Node.js
+ 
+Estoy obteniendo el script oficial de NodeSource, que añade a mi sistema los repositorios necesarios para instalar Node.js versión 20 (estable en 2025).
+Este paso configura el sistema para que apt reconozca los paquetes de Node.js como oficiales y compatibles.
+4.	Instalo Node.js y npm
+ 
+Estoy obteniendo el script oficial de NodeSource, que añade a mi sistema los repositories necesarios para instalar Node.js versión 20 (estable en 2025).
+5. Instalo el Node.js npm
+ 
+6. (Opcional pero recomendado) Instalo herramientas de compilación
+ 
+Algunos paquetes de Node requieren ser compilados localmente. Este paquete instala herramientas como make, gcc y otras dependencias necesarias para compilar código nativo.
+7. Verifico que todo esté instalado correctamente
+ 
+Estoy confirmando que tanto Node.js se instalo correctamente y qué versiones tengo disponibles.
