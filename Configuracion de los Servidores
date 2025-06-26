@@ -1,3 +1,4 @@
+do
 CONFIGURACION DE LOS SERVIDORES
 Actualizaremos los paquetes del sistema 
                                  $ sudo apt update && sudo apt upgrade -y
