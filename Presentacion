@@ -1,1 +1,55 @@
+🌐 Proyecto Final SIS313 - Diseño e Implementacion de una Infraestructura de TI tolerante a fallos
+
+Integrantes:
+1. Derlis Arcienega Martinez
+2. Cruz Serrudo Jhonn Clemente
+
+🛠️ Proyecto: Diseño e Implementación de una Infraestructura Tolerante a Fallos
+📌 Descripción general
+Este proyecto tiene como objetivo diseñar e implementar una infraestructura de red y servicios que sea capaz de mantener la disponibilidad y continuidad operativa ante fallos parciales o totales de sus componentes críticos.
+
+Se centra en la redundancia de servidores, la replicación de bases de datos, el uso de balanceadores de carga y otras estrategias que aseguran que el sistema pueda seguir funcionando sin interrupciones, incluso en caso de fallas.
+
+🎯 Objetivos del proyecto
+Diseñar una arquitectura que minimice el tiempo de inactividad.
+
+Implementar replicación maestro-esclavo para bases de datos MySQL.
+
+Configurar alta disponibilidad mediante balanceo de carga con HAProxy/Nginx.
+
+Automatizar monitoreo y alertas con herramientas como Prometheus y Grafana.
+
+Probar la tolerancia a fallos mediante simulaciones de caídas.
+
+🧱 Tecnologías utilizadas
+Ubuntu Server
+
+MySQL (Replicación Master-Slave)
+
+Nginx o HAProxy (Load Balancer)
+
+Prometheus + Grafana para monitoreo
+
+Bash / Ansible para automatización de despliegue
+
+🔁 Mecanismos de tolerancia a fallos implementados
+Redundancia de servidores: dos o más servidores con funciones similares configurados para tomar el control en caso de fallo.
+
+Replicación de base de datos: toda escritura en el maestro se replica automáticamente en uno o más esclavos.
+
+Balanceo de carga: distribuye las peticiones entre varios servidores activos.
+
+Failover automático: uso de Keepalived para redirigir el tráfico al nodo disponible en caso de fallo del principal.
+
+✅ Resultados
+Infraestructura capaz de soportar fallos de uno o varios componentes sin interrumpir el servicio.
+
+Tiempo de recuperación automático medido entre 2 y 5 segundos.
+
+Pruebas de caída simuladas validaron la integridad de la arquitectura.
+
+
+📚 Conclusiones
+El sistema implementado demuestra que es posible construir infraestructuras resilientes utilizando herramientas de código abierto y configuraciones bien planificadas. Esta arquitectura puede escalarse fácilmente para cubrir sistemas críticos en entornos de producción reales.
+
 
